@@ -55,3 +55,19 @@ getSong songId = do
   return $ find (\song -> song ^. field @"id" == songId) songs
 
 updateSong :: Deps r m => Int -> m ()
+updateSong newSong = withTVar $ \tvar -> do
+  state <- readTVar tvar
+  let existingSongs = state ^. field @"songs"
+      songId = newSong ^. field @"id"
+      maySong = find (\song -> song ^. field @"id" == songId) existingSongs
+  case maySong of
+    Nothing ->
+      return Nothing
+    Just _ -> do
+      let replace song =
+            if song ^. field @"id" == songId
+            then newSong
+            else song
+          newState = state & field @"songs" . traverse %~ replace
+      writeTVar tvar newState
+      return $ Just newSong

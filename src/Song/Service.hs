@@ -71,3 +71,8 @@ updateSong newSong = withTVar $ \tvar -> do
           newState = state & field @"songs" . traverse %~ replace
       writeTVar tvar newState
       return $ Just newSong
+
+removeSong :: Deps r m => Int -> m ()
+removeSong songId = withTVar $ \tvar ->
+  modifyTVar' tvar $ \state ->
+    state & field @"songs" %~ filter (\song -> song ^. field $"id" /= songId)

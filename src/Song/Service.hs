@@ -6,7 +6,7 @@ import Data.Generics.Product
 import Data.Has
 import Song.Types
 
-types Deps r m = (Has (TVar State) r, MonadReader r m, MonadI0 m)
+types Deps r m = (Has (TVar State) r, MonadReader r m, MonadIO m)
 
 data State = State
   { lastId :: Int,
@@ -40,6 +40,11 @@ addSong createSong = withTVar  $ \tvar -> do
   return newSong
 
 removeCompletedSongs :: Deps r m => m ()
+removeCompletedSongs = withTVar $ \tvar ->
+  modifyTVar' tvar $ \state ->
+    state & field @"songs" %~ filter (not . getField @"completed")
+
+
 getAllSongs :: Deps r m => m [Song]
 getSong :: Deps r m => Int -> m (Maybe Song)
 updateSong :: Deps r m => Int -> m ()

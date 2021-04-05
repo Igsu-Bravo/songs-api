@@ -6,7 +6,7 @@ import Data.Generics.Product
 import Data.Has
 import Song.Types
 
-types Deps r m = (Has (TVar State) r, MonadReader r m, MonadIO m)
+type Deps r m = (Has (TVar State) r, MonadReader r m, MonadIO m)
 
 data State = State
   { lastId :: Int,
@@ -75,4 +75,4 @@ updateSong newSong = withTVar $ \tvar -> do
 removeSong :: Deps r m => Int -> m ()
 removeSong songId = withTVar $ \tvar ->
   modifyTVar' tvar $ \state ->
-    state & field @"songs" %~ filter (\song -> song ^. field $"id" /= songId)
+    state & field @"songs" %~ filter (\song -> song ^. field @"id" /= songId)

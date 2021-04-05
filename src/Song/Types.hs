@@ -1,4 +1,4 @@
-module Songs.Types where
+module Song.Types where
 
 import ClassyPrelude
 import Data.Aeson
@@ -25,10 +25,12 @@ instance ToJSON UpdateSong
 instance FromJSON UpdateSong
 
 data Song = Song
-  { id :: Int
-  , title :: Text
-  , completed :: Bool
-  } deriving (Generic, Show)
+  { id :: Int,
+    title :: Text,
+    completed :: Bool
+  }
+  deriving (Generic, Show)
 
 instance ToJSON Song
+
 instance FromJSON Song

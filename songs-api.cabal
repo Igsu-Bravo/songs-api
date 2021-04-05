@@ -26,13 +26,14 @@ source-repository head
 library
   exposed-modules:
       Lib
+      Song.Routes
       Song.Service
       Song.Types
   other-modules:
       Paths_songs_api
   hs-source-dirs:
       src
-  default-extensions: OverloadedStrings GeneralizedNewTypeDeriving ConstraintKinds FlexibleContexts NoImplicitPrelude DataKinds DeriveGeneric DuplicateRecordFields TypeApplications ScopedTypeVariables
+  default-extensions: OverloadedStrings GeneralizedNewtypeDeriving ConstraintKinds FlexibleContexts NoImplicitPrelude DataKinds DeriveGeneric DuplicateRecordFields TypeApplications ScopedTypeVariables
   build-depends:
       aeson
     , base >=4.7 && <5
@@ -51,7 +52,7 @@ executable songs-api-exe
       Paths_songs_api
   hs-source-dirs:
       app
-  default-extensions: OverloadedStrings GeneralizedNewTypeDeriving ConstraintKinds FlexibleContexts NoImplicitPrelude DataKinds DeriveGeneric DuplicateRecordFields TypeApplications ScopedTypeVariables
+  default-extensions: OverloadedStrings GeneralizedNewtypeDeriving ConstraintKinds FlexibleContexts NoImplicitPrelude DataKinds DeriveGeneric DuplicateRecordFields TypeApplications ScopedTypeVariables
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
@@ -68,7 +69,7 @@ test-suite songs-api-test
       Paths_songs_api
   hs-source-dirs:
       test
-  default-extensions: OverloadedStrings GeneralizedNewTypeDeriving ConstraintKinds FlexibleContexts NoImplicitPrelude DataKinds DeriveGeneric DuplicateRecordFields TypeApplications ScopedTypeVariables
+  default-extensions: OverloadedStrings GeneralizedNewtypeDeriving ConstraintKinds FlexibleContexts NoImplicitPrelude DataKinds DeriveGeneric DuplicateRecordFields TypeApplications ScopedTypeVariables
   ghc-options: -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5

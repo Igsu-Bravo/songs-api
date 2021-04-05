@@ -10,7 +10,11 @@ import Web.Scotty.Trans
 
 routes :: S.Deps r m => ScottyT LText m ()
 routes = do
-  post "/songs" undefined
+  post "/songs" $ do
+    arg <- jsonData
+    result <- lift $ S.addSong arg
+    json result
+
   get "/songs" undefined
   delete "/songs" undefined
   get "/songs/:id" undefined

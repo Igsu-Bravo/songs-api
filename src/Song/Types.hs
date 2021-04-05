@@ -30,4 +30,5 @@ data Song = Song
   , completed :: Bool
   } deriving (Generic, Show)
 
-instance ToJSON
+instance ToJSON Song
+instance FromJSON Song

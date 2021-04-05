@@ -5,7 +5,7 @@ import Control.Lens
 import Data.Generics.Product hiding (param)
 import Network.HTTP.Types.Status
 import Network.Wai
-import qualified Song.Services as S
+import qualified Song.Service as S
 import Web.Scotty.Trans
 
 routes :: S.Deps r m => ScottyT LText m ()

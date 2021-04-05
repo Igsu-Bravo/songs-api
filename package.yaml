@@ -58,7 +58,7 @@ tests:
 
 default-extensions:
   - OverloadedStrings
-  - GeneralizedNewTypeDeriving
+  - GeneralizedNewtypeDeriving
   - ConstraintKinds
   - FlexibleContexts
   - NoImplicitPrelude

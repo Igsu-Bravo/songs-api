@@ -44,7 +44,14 @@ removeCompletedSongs = withTVar $ \tvar ->
   modifyTVar' tvar $ \state ->
     state & field @"songs" %~ filter (not . getField @"completed")
 
-
 getAllSongs :: Deps r m => m [Song]
+getAllSongs = withTVar $ \tvar -> do
+  state <- readTVar tvar
+  return $ state ^. field @"songs"
+
 getSong :: Deps r m => Int -> m (Maybe Song)
+getSong songId = do
+  songs <- getAllSongs
+  return $ find (\song -> song ^. field @"id" == songId) songs
+
 updateSong :: Deps r m => Int -> m ()

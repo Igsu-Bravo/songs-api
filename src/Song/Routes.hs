@@ -7,6 +7,7 @@ import Network.HTTP.Types.Status
 import Network.Wai
 import qualified Song.Service as S
 import Web.Scotty.Trans
+import Song.Types
 
 routes :: S.Deps r m => ScottyT LText m ()
 routes = do
@@ -25,7 +26,7 @@ routes = do
 
   get "/songs/:id" $ do
     songId <- param "id"
-    mayResult <- lift S.getSong songId
+    mayResult <- lift $ S.getSong songId
     case mayResult of
       Nothing ->
         status status404
@@ -40,14 +41,14 @@ routes = do
       title = arg ^. field @"title",
       completed = arg ^. field @"completed"
     }
-    mayResult <- lift S.updateSong song
+    mayResult <- lift $ S.updateSong song
     case mayResult of
       Nothing ->
-        status status 404
+        status status404
       Just result ->
         json result
 
   delete "/songs/:id" $ do
     songId <- param "id"
-    lift S.removeSong songId
+    lift $  S.removeSong songId
     status status204

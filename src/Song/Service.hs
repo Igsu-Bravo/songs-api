@@ -54,7 +54,7 @@ getSong songId = do
   songs <- getAllSongs
   return $ find (\song -> song ^. field @"id" == songId) songs
 
-updateSong :: Deps r m => Int -> m ()
+updateSong :: Deps r m => Song -> m (Maybe Song)
 updateSong newSong = withTVar $ \tvar -> do
   state <- readTVar tvar
   let existingSongs = state ^. field @"songs"
